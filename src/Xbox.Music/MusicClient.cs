@@ -57,7 +57,7 @@ namespace Xbox.Music
         /// <summary>
         /// 
         /// </summary>
-        private TokenResponse TokenResponse { get; set; }
+        public TokenResponse TokenResponse { get; set; }
 
         #endregion
 
@@ -275,7 +275,7 @@ namespace Xbox.Music
         /// </summary>
         /// <param name="resourceUrl"></param>
         /// <returns>A new <see cref="RestRequest"/> populated with the common values for every request</returns>
-        private RestRequest GetPopulatedRequest(string resourceUrl)
+        protected RestRequest GetPopulatedRequest(string resourceUrl)
         {
             if (string.IsNullOrWhiteSpace(TokenResponse.AccessToken))
             {
@@ -304,7 +304,7 @@ namespace Xbox.Music
         /// a proactive refresh and get an updated token in the background.
         /// </summary>
         /// <returns></returns>
-        private async Task CheckToken()
+        protected async Task CheckToken()
         {
             if (TokenResponse != null && TokenResponse.NeedsRefresh)
             {
@@ -328,7 +328,7 @@ namespace Xbox.Music
         /// Acquires a new AuthToken from Azure Access Control.
         /// </summary>
         /// <returns></returns>
-        private async Task Authenticate()
+        protected async Task Authenticate()
         {
             var client = new RestClient
             {

@@ -9,7 +9,7 @@ namespace Xbox.Music
 {
  
     [DataContract]
-    internal class TokenResponse
+    public class TokenResponse
     {
 
         #region Properties
@@ -18,35 +18,35 @@ namespace Xbox.Music
         /// The access token that you can use to authenticate you access to the Xbox Music RESTful API.
         /// </summary>
         [DataMember(Name = "access_token")]
-        internal string AccessToken { get; set; }
+        public string AccessToken { get; set; }
 
         /// <summary>
         /// The data type of the token. Currently, Azure Marketplace returns http://schemas.xmlsoap.org/ws/2009/11/swt-token-profile-1.0, which indicates that a Simple Web Token will be returned.
         /// </summary>
         [DataMember(Name = "token_type")]
-        internal string TokenType { get; set; }
+        public string TokenType { get; set; }
 
         /// <summary>
         /// The number of seconds for which the access token is valid.
         /// </summary>
         [DataMember(Name = "expires_in")]
-        internal int ExpiresInSeconds { get; set; }
+        public int ExpiresInSeconds { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "scope")]
-        internal string Scope { get; set; }
+        public string Scope { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        internal DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        internal bool IsValid
+        public bool IsValid
         {
             get { return TimeStamp.AddSeconds(ExpiresInSeconds - 5) < DateTime.Now; }
         }
@@ -54,7 +54,7 @@ namespace Xbox.Music
         /// <summary>
         /// 
         /// </summary>
-        internal bool NeedsRefresh
+        public bool NeedsRefresh
         {
             get { return TimeStamp.AddSeconds(ExpiresInSeconds - 30) < DateTime.Now; }
         }
