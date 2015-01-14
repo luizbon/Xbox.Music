@@ -144,7 +144,7 @@ namespace Xbox.Music
 
             request.AddQueryString("continuationToken", continuationToken);
             request.AddQueryString("accessToken", "Bearer " + TokenResponse.AccessToken);
-
+            
             return await ExecuteAsync<ContentResponse>(request);
         }
 
