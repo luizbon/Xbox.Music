@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PortableRest;
@@ -138,8 +139,11 @@ namespace Xbox.Music
             if (string.IsNullOrWhiteSpace(continuationToken))
                 throw new ArgumentNullException("continuationToken", "You must specify the continuationToken from a previous query.");
 
-            await CheckToken();
+            //When there's a continuationToken there must not be Language nor Country in the request
+            Language = null;
+            Country = null;
 
+            await CheckToken();
             var request = GetPopulatedRequest("1/content/{namespace}/search");
 
             request.AddQueryString("continuationToken", continuationToken);
@@ -311,8 +315,7 @@ namespace Xbox.Music
                 // RWM: The token is still valid but within the 30 refresh window. 
                 // Get a new token, but to not block the existing request.
                 Debug.WriteLine("Proactively refreshing the AccessToken...");
-// ReSharper disable once CSharpWarnings::CS4014
-                Authenticate();
+                await Authenticate();
             }
 
             if (TokenResponse == null || !TokenResponse.IsValid)
