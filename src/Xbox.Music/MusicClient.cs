@@ -279,7 +279,7 @@ namespace Xbox.Music
         /// </summary>
         /// <param name="resourceUrl"></param>
         /// <returns>A new <see cref="RestRequest"/> populated with the common values for every request</returns>
-        protected RestRequest GetPopulatedRequest(string resourceUrl)
+        protected virtual RestRequest GetPopulatedRequest(string resourceUrl)
         {
             if (string.IsNullOrWhiteSpace(TokenResponse.AccessToken))
             {
@@ -315,7 +315,9 @@ namespace Xbox.Music
                 // RWM: The token is still valid but within the 30 refresh window. 
                 // Get a new token, but to not block the existing request.
                 Debug.WriteLine("Proactively refreshing the AccessToken...");
-                await Authenticate();
+#pragma warning disable 4014
+                Authenticate();
+#pragma warning restore 4014
             }
 
             if (TokenResponse == null || !TokenResponse.IsValid)
