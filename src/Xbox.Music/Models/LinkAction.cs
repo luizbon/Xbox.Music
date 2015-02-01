@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Xbox.Music
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum LinkAction
     {
         /// <summary>

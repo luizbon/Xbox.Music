@@ -42,18 +42,6 @@ namespace Xbox.Music
         /// Responses will be filtered to provide only those that match the user's country/region.
         /// </summary>
         public string Country { get; set; }
-        
-        /// <summary>
-        /// Required. A valid developer authentication Access Token obtained from Azure Data Market, 
-        /// used to identify the third-party application using the Xbox Music RESTful API.
-        /// </summary>
-        //private string AccessToken { get; set; }
-
-        /// <summary>
-        /// Keeps track of when the token was last issued so the MusicClient can obtain a new one 
-        /// before it expires.
-        /// </summary>
-        //private DateTime TokenLastAcquired { get; set; }
 
         /// <summary>
         /// 
@@ -315,9 +303,7 @@ namespace Xbox.Music
                 // RWM: The token is still valid but within the 30 refresh window. 
                 // Get a new token, but to not block the existing request.
                 Debug.WriteLine("Proactively refreshing the AccessToken...");
-#pragma warning disable 4014
-                Authenticate();
-#pragma warning restore 4014
+                await Authenticate();
             }
 
             if (TokenResponse == null || !TokenResponse.IsValid)
@@ -343,7 +329,6 @@ namespace Xbox.Music
             var request = new RestRequest("v2/OAuth2-13", HttpMethod.Post)
             {
                 ContentType = ContentTypes.FormUrlEncoded,
-                ReturnRawString = true,
             };
             request.AddParameter("client_id", ClientId);
             request.AddParameter("client_secret", ClientSecret);

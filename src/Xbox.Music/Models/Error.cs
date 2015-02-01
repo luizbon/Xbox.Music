@@ -3,6 +3,9 @@
 namespace Xbox.Music
 {
 
+    /// <summary>
+    ///
+    /// </summary>
     [DataContract]
     public class Error
     {

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 namespace Xbox.Music
 {
  
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class TokenResponse
     {
